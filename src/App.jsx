@@ -1,8 +1,10 @@
+import Sidebar from './components/Sidebar';
+
 function App() {
   return (
-    <>
-      <h1>Hello World</h1>
-    </>
+    <main className="h-screen my-8">
+      <Sidebar />
+    </main>
   );
 }
 

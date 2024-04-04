@@ -2,6 +2,7 @@ import Sidebar from './components/Sidebar';
 import NewProject from './components/NewProject';
 import NoProject from './components/NoProject';
 import { useState } from 'react';
+import SelectedProject from './components/SelectedProject';
 
 function App() {
   const [projectsState, setProjectsState] = useState({
@@ -9,6 +10,16 @@ function App() {
     // undefined - not adding new project or selecting an existing one.
     selectedProjectId: undefined,
   });
+
+  // Function for setting the currently selected project.
+  function handleSelectProject(id) {
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        selectedProjectId: id,
+      };
+    });
+  }
 
   // Function to signal that we have started with adding a new project.
   function handleAddProject() {
@@ -55,7 +66,13 @@ function App() {
     });
   }
 
-  let content;
+  // Find an id of the selected project and forward it to the SelectedProject
+  // to update the DOM with its details.
+  const selectedProject = projectsState.projects.find(
+    (project) => project.id === projectsState.selectedProjectId
+  );
+
+  let content = <SelectedProject project={selectedProject} />;
 
   if (projectsState.selectedProjectId === null) {
     content = (
@@ -69,7 +86,9 @@ function App() {
     <main className="h-screen my-8 flex gap-8">
       <Sidebar
         onAddProject={handleAddProject}
+        onSelectProject={handleSelectProject}
         projects={projectsState.projects}
+        selectedProjectId={projectsState.selectedProjectId}
       />
       {content}
     </main>

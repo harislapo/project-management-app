@@ -23,11 +23,11 @@ export default function NewProject({ onSubmit }) {
       </div>
       <menu className="flex items-center justify-end gap-4 my-4">
         <li>
-          <button className="text-stone-800 hover:text-red-700">Cancel</button>
+          <button className="text-stone-800 hover:text-red-400">Cancel</button>
         </li>
         <li>
           <button
-            className="px-6 py-2 rounded-md bg-blue-300 text-stone-100 hover:bg-blue-400"
+            className="px-6 py-2 rounded-md bg-sky-500 text-stone-100 hover:bg-sky-400"
             onClick={handleSave}
           >
             Save

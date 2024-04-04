@@ -26,23 +26,24 @@ function App() {
   function handleSubmitProject(projectData) {
     // Get the guaranteed latest snapshot of the projects state.
     setProjectsState((prevState) => {
+      // Generate a dummy random ID, not bulletproof but good enough.
+      const projectId = Math.floor(Math.random() * 58315318);
       // Create a new object.
       const newProject = {
         // Spread the data we got from the NewProject component (title: title, description:description, date:date).
         ...projectData,
-        // Generate a dummy random ID, not bulletproof but good enough.
-        id: Math.floor(Math.random() * 58315318),
+        id: projectId,
       };
 
       // Return a new state with the old projects array copied and a new project added to it.
       return {
         ...prevState,
+        // Revert to undefined to signal that we're finished adding a new project.
+        selectedProjectId: undefined,
         projects: [...prevState.projects, newProject],
       };
     });
   }
-
-  console.log(projectsState);
 
   let content;
 
@@ -54,7 +55,10 @@ function App() {
 
   return (
     <main className="h-screen my-8 flex gap-8">
-      <Sidebar onAddProject={handleAddProject} />
+      <Sidebar
+        onAddProject={handleAddProject}
+        projects={projectsState.projects}
+      />
       {content}
     </main>
   );

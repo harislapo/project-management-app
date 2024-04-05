@@ -1,13 +1,14 @@
 import { useState } from 'react';
 
 export default function NewTask({ onAdd }) {
-  const [taskInput, setTaskInput] = useState();
+  const [taskInput, setTaskInput] = useState('');
 
   function handleChange(event) {
     setTaskInput(event.target.value);
   }
 
   function handleSubmitTask() {
+    if (taskInput.trim() === '') return;
     onAdd(taskInput);
     setTaskInput('');
   }

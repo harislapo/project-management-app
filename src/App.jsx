@@ -74,7 +74,15 @@ function App() {
     });
   }
 
-  function handleRemoveTask() {}
+  // Delete a task from project.
+  function handleRemoveTask(id) {
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        tasks: prevState.tasks.filter((task) => task.id !== id),
+      };
+    });
+  }
 
   // Cancel the creation of a new project.
   function handleCancel() {

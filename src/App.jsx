@@ -66,13 +66,28 @@ function App() {
     });
   }
 
+  // Delete a project.
+  function handleDelete() {
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        selectedProjectId: undefined,
+        // Change the state in an immutable way.
+        projects: prevState.projects.filter(
+          // Returns an array of elements who's ids don't match the currently selected project.
+          (project) => project.id !== prevState.selectedProjectId
+        ),
+      };
+    });
+  }
+
   // Find an id of the selected project and forward it to the SelectedProject
   // to update the DOM with its details.
   const selectedProject = projectsState.projects.find(
     (project) => project.id === projectsState.selectedProjectId
   );
 
-  let content = <SelectedProject project={selectedProject} />;
+  let content = <SelectedProject project={selectedProject} onDelete={handleDelete} />;
 
   if (projectsState.selectedProjectId === null) {
     content = (

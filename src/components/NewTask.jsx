@@ -1,8 +1,28 @@
-export default function NewTask() {
+import { useState } from 'react';
+
+export default function NewTask({ onAdd }) {
+  const [taskInput, setTaskInput] = useState();
+
+  function handleChange(event) {
+    setTaskInput(event.target.value);
+  }
+
+  function handleSubmitTask() {
+    onAdd(taskInput);
+    setTaskInput('');
+  }
+
   return (
     <div className="flex items-center gap-4">
-      <input type="text" className="w-64 px-2 py-1 rounded-sm bg-stone-200" />
-      <button className="text-stone-950">Add Task</button>
+      <input
+        type="text"
+        onChange={handleChange}
+        value={taskInput}
+        className="w-64 px-2 py-1 rounded-sm bg-stone-200"
+      />
+      <button onClick={handleSubmitTask} className="text-stone-950">
+        Add Task
+      </button>
     </div>
   );
 }
